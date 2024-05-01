@@ -1,11 +1,4 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import DropDownOptions from "@/components/DropDownOptions";
 
 export default function Home() {
   return (
@@ -13,7 +6,7 @@ export default function Home() {
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Welcome to a trivia quiz...
       </h1>
-      <section className="p-10 my-10 rounded-lg shadow-xl w-[65%]">
+      <section className="p-10 my-10 rounded-lg shadow-xl w-[75%]">
         <div>
           <label
             htmlFor="first_name"
@@ -31,17 +24,7 @@ export default function Home() {
             required
           />
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DropDownOptions />
       </section>
     </section>
   );
