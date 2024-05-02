@@ -5,6 +5,8 @@ import DropDownOptions from "@/components/DropDownOptions";
 import useQuiz from "./store";
 
 export default function Home() {
+  const addNumberOfQuestions = useQuiz((state) => state.addNumberOfQuestions);
+
   return (
     <section className="flex flex-col justify-center items-center">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -20,6 +22,7 @@ export default function Home() {
           </label>
           <input
             type="number"
+            onChange={(e) => addNumberOfQuestions(e.target.value)}
             defaultValue={10}
             min={0}
             max={50}

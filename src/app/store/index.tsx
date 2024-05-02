@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export type configType = {
+  config: any;
   numberOfQuestion: number;
   category: { id: number; name: string };
   level: string;
@@ -38,6 +39,8 @@ const useQuiz = create((set) => ({
     })),
   addScore: (score: number) =>
     set((state: configType) => ({ config: { ...state.config, score: score } })),
+  addType: (type: string) =>
+    set((state: configType) => ({ config: { ...state.config, type: type } })),
 }));
 
 export default useQuiz;
