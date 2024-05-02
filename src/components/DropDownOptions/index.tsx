@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +9,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useQuiz from "@/app/store";
+
+type CategoryType = {
+  id: number;
+  name: string;
+};
+
+const Type = ["boolean", "multiple"];
+const Level = ["easy", "medium", "hard"];
 
 const DropDownOptions = () => {
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const addCategory = useQuiz((state) => state.addCategory);
+
+  useEffect(() => {
+    async function fetchCategory() {
+      const { trivia_categories } = await (
+        await fetch("https://opentdb.com/api_category.php")
+      ).json();
+      setCategories([...trivia_categories]);
+    }
+    fetchCategory();
+  }, []);
+
   return (
     <section className="flex justify-evenly items-center py-5 w-full">
       <div className="px-7 py-4 w-1/3 mx-4">
@@ -19,10 +43,14 @@ const DropDownOptions = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>Select Category</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
+            {categories.map((category) => (
+              <DropdownMenuItem
+                key={category.name}
+                onClick={() => addCategory(category.id, category.name)}
+              >
+                {category.name}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
