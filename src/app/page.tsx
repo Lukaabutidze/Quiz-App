@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section className="flex flex-col justify-center items-center">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Welcome to a trivia quiz...
+        Welcome to a Trivia Quiz...
       </h1>
       <section className="p-10 my-10 rounded-lg shadow-xl w-[75%]">
         <div>
