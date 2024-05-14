@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useQuiz from "@/app/store";
+import { useQuizConfig } from "@/app/store";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 type CategoryType = {
@@ -17,10 +17,10 @@ type CategoryType = {
 export default function DropdownOptions() {
   const [categories, setCategories] = useState<CategoryType[]>([]);
 
-  const config = useQuiz((state: any) => state.config);
-  const addCategory = useQuiz((state: any) => state.addCategory);
-  const addLevel = useQuiz((state: any) => state.addLevel);
-  const addType = useQuiz((state: any) => state.addType);
+  const config = useQuizConfig((state: any) => state.config);
+  const addCategory = useQuizConfig((state: any) => state.addCategory);
+  const addLevel = useQuizConfig((state: any) => state.addLevel);
+  const addType = useQuizConfig((state: any) => state.addType);
 
   useEffect(() => {
     async function fetchCategory() {

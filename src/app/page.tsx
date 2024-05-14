@@ -2,10 +2,12 @@
 
 import Button from "@/components/Button";
 import DropDownOptions from "@/components/DropDownOptions";
-import useQuiz from "./store";
+import { useQuizConfig } from "./store";
 
 export default function Home() {
-  const addNumberOfQuestions = useQuiz((state) => state.addNumberOfQuestions);
+  const addNumberOfQuestions = useQuizConfig(
+    (state) => state.addNumberOfQuestions
+  );
 
   return (
     <section className="flex flex-col justify-center items-center">
