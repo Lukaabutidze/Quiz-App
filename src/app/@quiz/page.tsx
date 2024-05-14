@@ -33,24 +33,33 @@ export default function Quiz() {
   useEffect(() => {
     async function getQuestions() {
       setLoading(true);
-      const { results } = await (
-        await fetch(
+      try {
+        const response = await fetch(
           `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`
-        )
-      ).json();
-      console.log(results);
-      let shuffledResults = results.map((e: questionT) => {
-        let value = [...e.incorrect_answers, e.correct_answer]
-          .map((value) => ({ value, sort: Math.random() }))
-          .sort((a, b) => a.sort - b.sort)
-          .map(({ value }) => value);
-        e.answers = [...value];
-        return e;
-      });
-      console.log(shuffledResults, "shuffeled");
-      setQuestions([...shuffledResults]);
-      setLoading(false);
+        );
+        const { results } = await response.json();
+
+        if (!results || !Array.isArray(results)) {
+          throw new Error("Invalid or empty results from API");
+        }
+
+        let shuffledResults = results.map((e: questionT) => {
+          let value = [...e.incorrect_answers, e.correct_answer]
+            .map((value) => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value);
+          e.answers = [...value];
+          return e;
+        });
+
+        setQuestions([...shuffledResults]);
+      } catch (error) {
+        console.error("Error fetching or processing questions:", error);
+      } finally {
+        setLoading(false);
+      }
     }
+
     getQuestions();
   }, [config.category, config.level, config.numberOfQuestion, config.type]);
 
